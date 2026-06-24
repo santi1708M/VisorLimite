@@ -228,15 +228,15 @@ document.addEventListener('DOMContentLoaded', () => {
     esriApiKeyInput.value = esriApiKey;
     updateProviderUI('esri');
   } else {
-    updateProviderUI('osm');
+    updateProviderUI('public');
   }
 
   function updateProviderUI(type) {
     if (type === 'esri') {
-      providerStatus.innerText = 'ESRI Engine';
+      providerStatus.innerText = 'ESRI (Autenticado)';
       providerStatus.className = 'provider-badge esri';
     } else {
-      providerStatus.innerText = 'OSM Engine';
+      providerStatus.innerText = 'ESRI (Público)';
       providerStatus.className = 'provider-badge osm';
     }
   }
@@ -303,14 +303,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Llamada a geocodificador según el proveedor activo
   async function performGeocoding(query) {
-    if (esriApiKey) {
-      await searchWithEsri(query);
-    } else {
-      await searchWithOsm(query);
-    }
+    // Buscar con ESRI por defecto (público o autenticado)
+    await searchWithEsri(query);
   }
 
-  // Geocodificación OSM Nominatim (Sin clave)
+  // Geocodificación OSM Nominatim (De respaldo por si ESRI falla)
   async function searchWithOsm(query) {
     try {
       const url = `https://nominatim.openstreetmap.org/search?format=json&limit=5&q=${encodeURIComponent(query)}&countrycodes=co`; // Sesgo hacia Colombia
@@ -328,15 +325,21 @@ document.addEventListener('DOMContentLoaded', () => {
         lon: parseFloat(r.lon)
       })));
     } catch (e) {
-      console.error('Error en geocodificación OSM:', e);
+      console.error('Error en geocodificación de respaldo OSM:', e);
     }
   }
 
-  // Geocodificación ESRI (Con clave)
+  // Geocodificación ESRI (Usa el endpoint público gratuito por defecto, o con token si se ingresa API key)
   async function searchWithEsri(query) {
     try {
-      // Usar el endpoint REST directo de ArcGIS Geocoding Service
-      const url = `https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?singleLine=${encodeURIComponent(query)}&f=json&token=${esriApiKey}&maxLocations=5&countryCode=COL`; // Sesgo hacia Colombia
+      // Usamos el endpoint público directo de ArcGIS World Geocoding Service (soporta Geosearch sin token)
+      let url = `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?singleLine=${encodeURIComponent(query)}&f=json&maxLocations=5&countryCode=COL`; // Sesgo hacia Colombia
+      
+      // Si el usuario guardó una clave, la mandamos como token
+      if (esriApiKey) {
+        url += `&token=${esriApiKey}`;
+      }
+      
       const response = await fetch(url);
       if (!response.ok) throw new Error();
       const data = await response.json();
@@ -349,8 +352,8 @@ document.addEventListener('DOMContentLoaded', () => {
       })));
     } catch (e) {
       console.error('Error en geocodificación ESRI:', e);
-      // Fallback a OSM si ESRI falla (por ejemplo por token expirado)
-      console.log('Fallando a OSM geocoding...');
+      // Fallback a OSM de respaldo si el servicio de ESRI falla o da error de token
+      console.log('Fallando a OSM geocoding como respaldo...');
       await searchWithOsm(query);
     }
   }
