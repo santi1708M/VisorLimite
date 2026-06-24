@@ -427,7 +427,26 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.removeChild(link);
   });
 
+  // Intentar cargar la clave de API localmente desde un config.json (para desarrollo local sin exponer la clave en git)
+  async function loadLocalConfig() {
+    try {
+      const response = await fetch('config.json');
+      if (response.ok) {
+        const config = await response.json();
+        if (config.arcgis_api_key) {
+          esriApiKey = config.arcgis_api_key;
+          esriApiKeyInput.value = esriApiKey;
+          updateProviderUI('esri');
+          console.log('Clave API de ArcGIS cargada desde config.json local.');
+        }
+      }
+    } catch (e) {
+      // Ignorar si no existe, es normal en entornos de producción
+    }
+  }
+
   // --- INICIAR ---
   initMap();
   loadGeoJson();
+  loadLocalConfig();
 });
