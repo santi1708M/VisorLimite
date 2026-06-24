@@ -3,8 +3,8 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // --- CONSTANTES Y ESTADO ---
-  const DEFAULT_CENTER = [6.2442, -75.5812]; // Medellín, Colombia
-  const DEFAULT_ZOOM = 12;
+  const DEFAULT_CENTER = [6.2442, -75.6912]; // Medellín, Colombia
+  const DEFAULT_ZOOM = 11;
   
   let map = null;
   let geojsonLayer = null;
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Centrar el mapa en los límites del GeoJSON
       const bounds = geojsonLayer.getBounds();
-      map.fitBounds(bounds);
+      // map.fitBounds(bounds);
 
       // Calcular y renderizar estadísticas
       calculateStats(geojsonData);
