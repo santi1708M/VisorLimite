@@ -706,12 +706,15 @@ input:checked + .slider:before {
 /* Responsive adjustments for Legend Panel */
 @media (max-width: 768px) {
   .legend-panel {
-    position: static;
-    width: 100%;
+    position: absolute;
+    top: auto;
+    bottom: 20px;
+    left: 20px;
     min-width: 0;
-    box-shadow: var(--shadow-sm);
-    background: white;
-    margin-top: 10px;
-    backdrop-filter: none;
+    width: auto;
+    box-shadow: var(--shadow);
+    background: var(--bg-panel);
+    backdrop-filter: blur(12px);
+    margin-top: 0;
   }
 }
