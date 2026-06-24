@@ -61,13 +61,13 @@ body {
   transition: var(--transition);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .floating-panel {
     top: 10px;
     left: 10px;
     right: 10px;
     width: auto;
-    max-height: calc(100vh - 20px);
+    max-height: 55vh;
     padding: 16px;
   }
 }
@@ -570,9 +570,9 @@ input:checked + .slider:before {
 
 /* Custom legend */
 .legend-panel {
-  position: fixed;
+  position: absolute;
   top: 20px;
-  left: 420px; /* Al lado derecho del panel de 380px de ancho */
+  left: 400px; /* Al lado derecho del panel de 380px de ancho */
   background: var(--bg-panel);
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
@@ -703,18 +703,36 @@ input:checked + .slider:before {
   text-align: right;
 }
 
-/* Responsive adjustments for Legend Panel */
+/* Responsive adjustments for Legend Panel (Horizontal & Separated) */
 @media (max-width: 768px) {
   .legend-panel {
-    position: absolute;
-    top: auto;
-    bottom: 20px;
-    left: 20px;
-    min-width: 0;
+    position: fixed;
+    bottom: 50px;
+    left: 10px;
+    right: 10px;
     width: auto;
+    min-width: 0;
+    z-index: 1000;
     box-shadow: var(--shadow);
     background: var(--bg-panel);
     backdrop-filter: blur(12px);
-    margin-top: 0;
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 14px;
+    gap: 12px;
+  }
+
+  .legend-title {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .coordinates-overlay {
+    display: none; /* Ocultar coordenadas en móvil al no haber cursor */
   }
 }
