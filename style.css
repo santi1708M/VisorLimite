@@ -570,9 +570,9 @@ input:checked + .slider:before {
 
 /* Custom legend */
 .legend-panel {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
+  position: fixed;
+  top: 20px;
+  left: 420px; /* Al lado derecho del panel de 380px de ancho */
   background: var(--bg-panel);
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
@@ -584,6 +584,7 @@ input:checked + .slider:before {
   flex-direction: column;
   gap: 8px;
   min-width: 180px;
+  transition: var(--transition);
 }
 
 .legend-title {
@@ -700,4 +701,17 @@ input:checked + .slider:before {
 .popup-table td.value {
   color: var(--text-main);
   text-align: right;
+}
+
+/* Responsive adjustments for Legend Panel */
+@media (max-width: 768px) {
+  .legend-panel {
+    position: static;
+    width: 100%;
+    min-width: 0;
+    box-shadow: var(--shadow-sm);
+    background: white;
+    margin-top: 10px;
+    backdrop-filter: none;
+  }
 }
