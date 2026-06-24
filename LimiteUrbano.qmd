@@ -1,0 +1,35 @@
+<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
+<qgis version="4.0.2-Norrköping">
+  <identifier>PerimetroUrbanoAMVAConflictoAMVA_02092025</identifier>
+  <parentidentifier></parentidentifier>
+  <language>SPA</language>
+  <type>dataset</type>
+  <title>Clasificacion del Suelo Municipal</title>
+  <abstract>Perimetro Urbano de las 9 municipios y el Distrito que conforman el Área Metropolitana del Valle de Aburrá. Es información fue construida a partir de la clasificación del suelo urbano. Actualizado a octubre de 2025.
+
+Perimetro Urbano de las 9 municipios y el Distrito que conforman el Área Metropolitana del Valle de Aburrá. Es información fue construida a partir de la clasificación del suelo urbano. Actualizado a octubre de 2025. Esta capa tiene la identificación del conflicto entre los municipios de Sabaneta y La Estrella en el sector de Pan de Azúcar, en cuanto a la diferencia de clasificación del suelo.</abstract>
+  <keywords vocabulary="Search keys">
+    <keyword>Perimetro Urbano - AMVA</keyword>
+  </keywords>
+  <links/>
+  <dates/>
+  <fees></fees>
+  <constraints type="Limitations of use">.</constraints>
+  <encoding></encoding>
+  <crs>
+    <spatialrefsys nativeFormat="Wkt">
+      <wkt></wkt>
+      <proj4></proj4>
+      <srsid>0</srsid>
+      <srid>0</srid>
+      <authid></authid>
+      <description></description>
+      <projectionacronym></projectionacronym>
+      <ellipsoidacronym></ellipsoidacronym>
+      <geographicflag>false</geographicflag>
+    </spatialrefsys>
+  </crs>
+  <extent>
+    <spatial crs="EPSG:4326" dimensions="2" maxx="-75.31962199999999541" maxy="6.45070999999999994" maxz="0" minx="-75.66579600000000028" miny="6.06829299999999972" minz="0"/>
+  </extent>
+</qgis>
